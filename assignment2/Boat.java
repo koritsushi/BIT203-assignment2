@@ -1,11 +1,14 @@
 package assignment2;
 
+import java.io.Serializable;
+
 /**
  * Abstract Class Boat
  * @author Mah_LiYuan_B2000511
  *
  */
-public abstract class Boat {
+public abstract class Boat implements Serializable
+{
 	private Owner owner;
 	private double height;
 	private double length;
