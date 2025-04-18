@@ -7,20 +7,21 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.GridLayout;
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+import javax.swing.SpringLayout;
 
 public class RegisterOwnerGUI extends JDialog {
 
 	private static final long serialVersionUID = 1L;
-	private final JPanel contentPanel = new JPanel();
-	private JTextField textField;
-	private JTextField textField_1;
-
+	private JTextField tfName;
+	private JTextField tfAddress;
 	/**
 	 * Launch the application.
 	 */
@@ -38,59 +39,86 @@ public class RegisterOwnerGUI extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
+	private void clearText()
+	{
+		tfName.setText("");
+		tfAddress.setText("");
+	}
+	
 	public RegisterOwnerGUI() {
+		
 		setBounds(100, 100, 450, 300);
-		getContentPane().setLayout(new BorderLayout());
-		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
-		getContentPane().add(contentPanel, BorderLayout.CENTER);
-		contentPanel.setLayout(null);
+		getContentPane().setLayout(null);
 		
-		JLabel label = new JLabel("Register Owner");
-		label.setBounds(173, 12, 111, 15);
-		contentPanel.add(label);
+		JPanel panel = new JPanel();
+		panel.setBounds(10, 11, 414, 201);
+		getContentPane().add(panel);
+		panel.setLayout(null);
 		
-		JLabel lblName = new JLabel("Name:");
-		lblName.setBounds(104, 64, 70, 15);
-		contentPanel.add(lblName);
+		JLabel lblNewLabel = new JLabel("Name:");
+		lblNewLabel.setBounds(51, 54, 72, 14);
+		panel.add(lblNewLabel);
 		
-		textField = new JTextField();
-		textField.setBounds(226, 62, 114, 19);
-		contentPanel.add(textField);
-		textField.setColumns(10);
+		tfName = new JTextField();
+		tfName.setBounds(174, 51, 155, 20);
+		panel.add(tfName);
+		tfName.setColumns(10);
 		
-		JLabel lblAddress = new JLabel("Address:");
-		lblAddress.setBounds(104, 91, 70, 15);
-		contentPanel.add(lblAddress);
+		JLabel lblNewLabel_1 = new JLabel("Address:");
+		lblNewLabel_1.setBounds(51, 79, 72, 14);
+		panel.add(lblNewLabel_1);
 		
-		textField_1 = new JTextField();
-		textField_1.setBounds(226, 89, 114, 19);
-		contentPanel.add(textField_1);
-		textField_1.setColumns(10);
-		{
-			JPanel buttonPane = new JPanel();
-			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
-			getContentPane().add(buttonPane, BorderLayout.SOUTH);
-			{
-				JButton okButton = new JButton("OK");
-				okButton.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						setVisible(false);
-					}
-				});
-				okButton.setActionCommand("OK");
-				buttonPane.add(okButton);
-				getRootPane().setDefaultButton(okButton);
+		tfAddress = new JTextField();
+		tfAddress.setBounds(174, 82, 155, 59);
+		panel.add(tfAddress);
+		tfAddress.setColumns(10);
+		
+		JLabel lblNewLabel_2 = new JLabel("Register Owner Details");
+		lblNewLabel_2.setBounds(127, 11, 127, 14);
+		panel.add(lblNewLabel_2);
+		
+		JPanel panel_1 = new JPanel();
+		panel_1.setBounds(10, 219, 414, 42);
+		getContentPane().add(panel_1);
+		panel_1.setLayout(null);
+		
+		JButton btnBack = new JButton("Back to Main Menu");
+		btnBack.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				RegisterOwnerGUI.this.dispose();
 			}
-			{
-				JButton cancelButton = new JButton("Cancel");
-				cancelButton.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						setVisible(false);
-					}
-				});
-				cancelButton.setActionCommand("Cancel");
-				buttonPane.add(cancelButton);
+		});
+		btnBack.setBounds(10, 11, 163, 23);
+		panel_1.add(btnBack);
+		
+		JButton btnClear = new JButton("Clear");
+		btnClear.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				clearText();
 			}
-		}
+		});
+		btnClear.setBounds(224, 11, 89, 23);
+		panel_1.add(btnClear);
+		
+		JButton btnRegisterOwner = new JButton("Register");
+		btnRegisterOwner.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String name = tfName.getText();
+				String address = tfAddress.getText();
+				
+				if (name.isEmpty() || address.isEmpty())
+				{	
+					JOptionPane.showMessageDialog(RegisterOwnerGUI.this, "Please fill up all fields!");
+					tfName.requestFocus();
+				}
+				Owner o = new Owner(name, address);
+				BoatStorageGUI.getBS().addOwner(o);
+				JOptionPane.showMessageDialog(RegisterOwnerGUI.this,"Successfully Register Owner! Owner id: " + o.getIdNumber());
+				clearText();
+			}
+		});
+		System.out.println(BoatStorageGUI.getBS().nonSortedOwner());
+		btnRegisterOwner.setBounds(323, 11, 89, 23);
+		panel_1.add(btnRegisterOwner);
 	}
 }

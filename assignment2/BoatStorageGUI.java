@@ -66,15 +66,16 @@ public class BoatStorageGUI extends JFrame {
 	public BoatStorageGUI() {
 		setTitle("BoatStorage Management B2000511");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 450, 350);
 		
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
 		
-		jfc = new JFileChooser();
-		
 		JMenu mnFile = new JMenu("File");
 		menuBar.add(mnFile);
+		
+		jfc = new JFileChooser();
+		bs = new BoatStorage();
 		
 		JMenuItem mntmOpen = new JMenuItem("Open");
 		mntmOpen.addActionListener(new ActionListener() {
@@ -158,57 +159,99 @@ public class BoatStorageGUI extends JFrame {
 		panel.add(lblTitle);
 		
 		JButton btnRegisterOwner = new JButton("Register Owner");
+		sl_panel.putConstraint(SpringLayout.NORTH, btnRegisterOwner, 22, SpringLayout.SOUTH, lblTitle);
+		sl_panel.putConstraint(SpringLayout.WEST, btnRegisterOwner, 80, SpringLayout.WEST, panel);
+		sl_panel.putConstraint(SpringLayout.SOUTH, btnRegisterOwner, -210, SpringLayout.SOUTH, panel);
+		sl_panel.putConstraint(SpringLayout.EAST, btnRegisterOwner, -90, SpringLayout.EAST, panel);
 		btnRegisterOwner.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					RegisterOwnerGUI Rgo = new RegisterOwnerGUI();
 					Rgo.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 					Rgo.setVisible(true);
-				} catch (Exception ex) {
-					ex.printStackTrace();
+					
+				} catch (Exception roex) {
+					roex.printStackTrace();
 				}
 			}
 		});
 		panel.add(btnRegisterOwner);
 		
 		JButton btnRegisterBoat = new JButton("Register Boat");
+		sl_panel.putConstraint(SpringLayout.NORTH, btnRegisterBoat, 6, SpringLayout.SOUTH, btnRegisterOwner);
+		sl_panel.putConstraint(SpringLayout.WEST, btnRegisterBoat, 0, SpringLayout.WEST, btnRegisterOwner);
+		sl_panel.putConstraint(SpringLayout.SOUTH, btnRegisterBoat, -181, SpringLayout.SOUTH, panel);
+		sl_panel.putConstraint(SpringLayout.EAST, btnRegisterBoat, 0, SpringLayout.EAST, btnRegisterOwner);
 		btnRegisterBoat.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				try {
+					RegisterBoatGUI RB = new RegisterBoatGUI();
+					RB.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+					RB.setVisible(true);
+				} catch (Exception rgex) {
+					rgex.printStackTrace();
+				}
 			}
 		});
-		sl_panel.putConstraint(SpringLayout.NORTH, btnRegisterBoat, 79, SpringLayout.NORTH, panel);
-		sl_panel.putConstraint(SpringLayout.WEST, btnRegisterOwner, 0, SpringLayout.WEST, btnRegisterBoat);
-		sl_panel.putConstraint(SpringLayout.SOUTH, btnRegisterOwner, -6, SpringLayout.NORTH, btnRegisterBoat);
 		panel.add(btnRegisterBoat);
 		
 		JButton btnDisplayBoatCount = new JButton("Display Total Boat Count");
+		sl_panel.putConstraint(SpringLayout.NORTH, btnDisplayBoatCount, 6, SpringLayout.SOUTH, btnRegisterBoat);
+		sl_panel.putConstraint(SpringLayout.WEST, btnDisplayBoatCount, 0, SpringLayout.WEST, btnRegisterOwner);
+		sl_panel.putConstraint(SpringLayout.EAST, btnDisplayBoatCount, 0, SpringLayout.EAST, btnRegisterOwner);
 		btnDisplayBoatCount.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		sl_panel.putConstraint(SpringLayout.WEST, btnRegisterBoat, 0, SpringLayout.WEST, btnDisplayBoatCount);
-		sl_panel.putConstraint(SpringLayout.EAST, btnDisplayBoatCount, -133, SpringLayout.EAST, panel);
 		panel.add(btnDisplayBoatCount);
 		
-		JButton btnDisplayAllOwner = new JButton("Display All Owner");
+		JButton btnDisplayAllOwner = new JButton("Display All Owner Details");
+		sl_panel.putConstraint(SpringLayout.NORTH, btnDisplayAllOwner, 6, SpringLayout.SOUTH, btnDisplayBoatCount);
+		sl_panel.putConstraint(SpringLayout.WEST, btnDisplayAllOwner, 80, SpringLayout.WEST, panel);
+		sl_panel.putConstraint(SpringLayout.EAST, btnDisplayAllOwner, 54, SpringLayout.EAST, lblTitle);
 		btnDisplayAllOwner.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				try {
+					DisplayOwnersGUI DO = new DisplayOwnersGUI();
+					DO.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+					DO.setVisible(true);
+				} catch (Exception doex) {
+					doex.printStackTrace();
+				}
 			}
 		});
-		sl_panel.putConstraint(SpringLayout.SOUTH, btnDisplayAllOwner, -69, SpringLayout.SOUTH, panel);
-		sl_panel.putConstraint(SpringLayout.SOUTH, btnDisplayBoatCount, -6, SpringLayout.NORTH, btnDisplayAllOwner);
-		sl_panel.putConstraint(SpringLayout.WEST, btnDisplayAllOwner, 0, SpringLayout.WEST, btnRegisterOwner);
 		panel.add(btnDisplayAllOwner);
 		
 		JButton btnExit = new JButton("Exit");
+		sl_panel.putConstraint(SpringLayout.WEST, btnExit, 0, SpringLayout.WEST, btnRegisterOwner);
+		sl_panel.putConstraint(SpringLayout.EAST, btnExit, 0, SpringLayout.EAST, btnRegisterOwner);
 		btnExit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.exit(0);
 			}
 		});
-		sl_panel.putConstraint(SpringLayout.NORTH, btnExit, 16, SpringLayout.SOUTH, btnDisplayAllOwner);
-		sl_panel.putConstraint(SpringLayout.EAST, btnExit, 0, SpringLayout.EAST, btnRegisterBoat);
 		panel.add(btnExit);
+		
+		JButton btnDisplayOwnerTotalMonthly = new JButton("Display Owner Total Monthly Charge");
+		btnDisplayOwnerTotalMonthly.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		sl_panel.putConstraint(SpringLayout.NORTH, btnDisplayOwnerTotalMonthly, 7, SpringLayout.SOUTH, btnDisplayAllOwner);
+		sl_panel.putConstraint(SpringLayout.WEST, btnDisplayOwnerTotalMonthly, 0, SpringLayout.WEST, btnRegisterOwner);
+		sl_panel.putConstraint(SpringLayout.EAST, btnDisplayOwnerTotalMonthly, 0, SpringLayout.EAST, btnRegisterOwner);
+		panel.add(btnDisplayOwnerTotalMonthly);
+		
+		JButton btnTotalMonthlyCharge = new JButton("Display Monthly Revenue");
+		btnTotalMonthlyCharge.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		sl_panel.putConstraint(SpringLayout.NORTH, btnExit, 20, SpringLayout.SOUTH, btnTotalMonthlyCharge);
+		sl_panel.putConstraint(SpringLayout.NORTH, btnTotalMonthlyCharge, 6, SpringLayout.SOUTH, btnDisplayOwnerTotalMonthly);
+		sl_panel.putConstraint(SpringLayout.WEST, btnTotalMonthlyCharge, 0, SpringLayout.WEST, btnRegisterOwner);
+		sl_panel.putConstraint(SpringLayout.EAST, btnTotalMonthlyCharge, 0, SpringLayout.EAST, btnRegisterOwner);
+		panel.add(btnTotalMonthlyCharge);
 		
 	}
 }

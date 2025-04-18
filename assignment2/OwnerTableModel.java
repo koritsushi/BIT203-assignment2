@@ -9,7 +9,17 @@ public class OwnerTableModel extends AbstractTableModel{
 	
 	public OwnerTableModel(BoatStorage bs)
 	{
+		setBoatStorage(bs);
+	}
+	
+	private void setBoatStorage(BoatStorage bs)
+	{
 		this.bs = bs;
+	}
+	
+	public BoatStorage getBoatStorage()
+	{
+		return bs;
 	}
 	
 	public String getColumnName(int col) {
@@ -25,16 +35,16 @@ public class OwnerTableModel extends AbstractTableModel{
 	}
 	
 	public Object getValueAt(int row, int col) {
-		Owner owner = bs.getspecifiedOwner(row);
+		Owner owner = BoatStorageGUI.getBS().getspecifiedOwner(row + 1);
 		switch (col)
 		{
-			case 1:
+			case 0:
 				return owner.getIdNumber();
-			case 2:
+			case 1:
 				return owner.getName();
-			case 3:
+			case 2:
 				return owner.getAddress();
-			case 4:
+			case 3:
 				return owner.totalOwnerCharge();
 			default:
 				return "N/A";
