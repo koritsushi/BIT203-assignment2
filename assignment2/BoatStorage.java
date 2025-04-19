@@ -1,5 +1,6 @@
 package assignment2;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.stream.Collector;
@@ -10,7 +11,7 @@ import java.util.stream.Collectors;
  * @author Mah_LiYuan_B2000511
  *
  */
-public class BoatStorage {
+public class BoatStorage implements Serializable {
 	private ArrayList<Owner> Owners;
 	private ArrayList<Boat> Boats; 
 	

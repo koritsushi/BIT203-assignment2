@@ -3,14 +3,19 @@ package assignment2;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.awt.event.ActionEvent;
 
 public class RegisterBoatGUI extends JDialog {
@@ -24,9 +29,14 @@ public class RegisterBoatGUI extends JDialog {
 	private JTextField tfMastHeight;
 	private JTextField tfSailArea;
 	private JTextField tfHorsePower;
-
-	private BoatStorage bsg;
-	private Boat boat;
+	private final ButtonGroup buttonGroup = new ButtonGroup();
+	private JRadioButton rdbtnSailBoat;
+	private JRadioButton rdbtnMotorboat;
+	
+	private BoatStorage bs;
+	private Owner owner;
+	private JTextField tfValue;
+	private JTextField tfChargeRate;
 	/**
 	 * Launch the application.
 	 */
@@ -45,7 +55,7 @@ public class RegisterBoatGUI extends JDialog {
 	 * Create the dialog.
 	 */
 	public RegisterBoatGUI() {
-		bsg = BoatStorageGUI.getBS();
+		bs = BoatStorageGUI.getBS();
 		setBounds(100, 100, 450, 400);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -60,7 +70,93 @@ public class RegisterBoatGUI extends JDialog {
 				JButton btnRegister = new JButton("Register");
 				btnRegister.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
+						String id = tfOwnerID.getText();
+						if (id.isEmpty())
+						{
+							JOptionPane.showMessageDialog(RegisterBoatGUI.this, "Please enter an Owner ID!");
+							tfOwnerID.requestFocus();
+							return ;
+						}
+						try 
+						{
+							owner = bs.getspecifiedOwner(Integer.parseInt(id));
+							if (owner == null)
+							{
+								JOptionPane.showMessageDialog(RegisterBoatGUI.this, 
+										"Please Enter a existing Owner ID!");
+								return ;
+							}
+						}
+						catch (NumberFormatException IDex)
+						{
+							JOptionPane.showMessageDialog(RegisterBoatGUI.this, 
+									"Please Enter Numeric Value for the OwnerID!");
+							return ;
+						}
 						
+						String height = tfHeight.getText();
+						String length = tfLength.getText();
+						String width = tfWidth.getText();
+						String value = tfValue.getText();
+						String chargeRate = tfChargeRate.getText();
+						
+						if (height.isEmpty() || length.isEmpty() || width.isEmpty() || value.isEmpty() || chargeRate.isEmpty())
+						{
+							JOptionPane.showMessageDialog(RegisterBoatGUI.this, "Please enter numeric value in all fields");
+						}
+						else
+						{
+							try 
+							{
+								double nheight =  Double.parseDouble(height);
+								double nlength = Double.parseDouble(length);
+								double nwidth = Double.parseDouble(width);
+								double nValue = Double.parseDouble(value);
+								double nChargeRate = Double.parseDouble(chargeRate);
+								if (rdbtnSailBoat.isSelected())
+								{
+									String mastHeight = tfMastHeight.getText();
+									String sailArea = tfSailArea.getText();
+									if (mastHeight.isEmpty())
+									{
+										JOptionPane.showMessageDialog(RegisterBoatGUI.this, "Please enter the value for mast height!");
+										tfMastHeight.requestFocus();
+										return ;
+									}
+									else if (sailArea.isEmpty())
+									{
+										JOptionPane.showMessageDialog(RegisterBoatGUI.this, "Please enter the value for mast height!");
+										tfSailArea.requestFocus();
+										return ;
+									}
+									double nmastHeight = Double.parseDouble(mastHeight);
+									double nsailArea = Double.parseDouble(sailArea);
+									
+									Boat sailBoat = new SailBoat(owner, nheight, nlength, nValue, nChargeRate, nwidth, nmastHeight, nsailArea);
+									owner.addBoat(sailBoat);
+									bs.addBoat(sailBoat);
+								}
+								else
+								{
+									String horsePower = tfHorsePower.getText();
+									if (horsePower.isEmpty())
+									{
+										JOptionPane.showMessageDialog(RegisterBoatGUI.this, "Please enter the value for horsePower!");
+										tfHorsePower.requestFocus();
+										return ;
+									}
+									double nHorsePower = Double.parseDouble(horsePower);
+									Boat MotorBoat = new MotorBoat(owner, nheight, nlength, nValue, nChargeRate, nwidth, nHorsePower);
+									owner.addBoat(MotorBoat);
+									bs.addBoat(MotorBoat);
+								}
+								JOptionPane.showMessageDialog(RegisterBoatGUI.this, "Successfully register boat to owner:" + owner.getIdNumber() + "!");
+								clearText();
+							} catch (NumberFormatException RGB) {
+								JOptionPane.showMessageDialog(RegisterBoatGUI.this, 
+										"Please Enter Numeric Value for all of the field!");
+							}
+						}
 					}
 				});
 				btnRegister.setBounds(319, 5, 105, 23);
@@ -91,24 +187,12 @@ public class RegisterBoatGUI extends JDialog {
 		}
 		{
 			JLabel label = new JLabel("Boat Type:");
-			label.setBounds(62, 55, 67, 14);
+			label.setBounds(20, 55, 109, 14);
 			contentPanel.add(label);
-		}
-		{
-			JPanel panel = new JPanel();
-			panel.setBounds(154, 47, 210, 34);
-			contentPanel.add(panel);
-			
-			JRadioButton rdbtnSailBoat = new JRadioButton("SailBoat");
-			rdbtnSailBoat.setSelected(true);
-			panel.add(rdbtnSailBoat);
-			
-			JRadioButton rdbtnMotorBoat = new JRadioButton("MotorBoat");
-			panel.add(rdbtnMotorBoat);
 		}
 		
 		JLabel lblNewLabel = new JLabel("Owner ID:");
-		lblNewLabel.setBounds(62, 21, 67, 14);
+		lblNewLabel.setBounds(20, 21, 109, 14);
 		contentPanel.add(lblNewLabel);
 		
 		tfOwnerID = new JTextField();
@@ -117,7 +201,8 @@ public class RegisterBoatGUI extends JDialog {
 		tfOwnerID.setColumns(10);
 		
 		JLabel lblNewLabel_1 = new JLabel("Height:");
-		lblNewLabel_1.setBounds(62, 98, 46, 14);
+		lblNewLabel_1.setBounds(20, 98, 88, 14);
+		
 		contentPanel.add(lblNewLabel_1);
 		
 		tfHeight = new JTextField();
@@ -126,7 +211,7 @@ public class RegisterBoatGUI extends JDialog {
 		tfHeight.setColumns(10);
 		
 		JLabel lblNewLabel_2 = new JLabel("Length:");
-		lblNewLabel_2.setBounds(62, 123, 46, 14);
+		lblNewLabel_2.setBounds(20, 123, 88, 14);
 		contentPanel.add(lblNewLabel_2);
 		
 		tfLength = new JTextField();
@@ -135,7 +220,7 @@ public class RegisterBoatGUI extends JDialog {
 		tfLength.setColumns(10);
 		
 		JLabel lblNewLabel_3 = new JLabel("Width:");
-		lblNewLabel_3.setBounds(62, 148, 46, 14);
+		lblNewLabel_3.setBounds(20, 148, 88, 14);
 		contentPanel.add(lblNewLabel_3);
 		
 		tfWidth = new JTextField();
@@ -144,7 +229,7 @@ public class RegisterBoatGUI extends JDialog {
 		tfWidth.setColumns(10);
 		
 		JLabel lblNewLabel_4 = new JLabel("Mast Height:");
-		lblNewLabel_4.setBounds(62, 173, 67, 14);
+		lblNewLabel_4.setBounds(20, 173, 109, 14);
 		contentPanel.add(lblNewLabel_4);
 		
 		tfMastHeight = new JTextField();
@@ -153,7 +238,7 @@ public class RegisterBoatGUI extends JDialog {
 		tfMastHeight.setColumns(10);
 		
 		JLabel lblNewLabel_5 = new JLabel("Sail Area:");
-		lblNewLabel_5.setBounds(62, 198, 46, 14);
+		lblNewLabel_5.setBounds(20, 198, 88, 14);
 		contentPanel.add(lblNewLabel_5);
 		
 		tfSailArea = new JTextField();
@@ -162,12 +247,77 @@ public class RegisterBoatGUI extends JDialog {
 		tfSailArea.setColumns(10);
 		
 		JLabel lblNewLabel_6 = new JLabel("Horse Power:");
-		lblNewLabel_6.setBounds(62, 223, 67, 14);
+		lblNewLabel_6.setBounds(20, 223, 124, 14);
 		contentPanel.add(lblNewLabel_6);
 		
 		tfHorsePower = new JTextField();
 		tfHorsePower.setBounds(154, 220, 210, 20);
 		contentPanel.add(tfHorsePower);
 		tfHorsePower.setColumns(10);
+		
+		JPanel rbpanel = new JPanel();
+		rbpanel.setBounds(154, 55, 210, 29);
+		contentPanel.add(rbpanel);
+		{
+			rdbtnSailBoat = new JRadioButton("SailBoat");
+			rdbtnSailBoat.setSelected(true);
+			rdbtnSailBoat.addItemListener(new ItemListener() {
+				public void itemStateChanged(ItemEvent e) {
+					init();
+				}
+			});
+			buttonGroup.add(rdbtnSailBoat);
+			rbpanel.add(rdbtnSailBoat);
+				
+			rdbtnMotorboat = new JRadioButton("MotorBoat");
+			buttonGroup.add(rdbtnMotorboat);
+			rbpanel.add(rdbtnMotorboat);
+		}
+		
+		JLabel lblNewLabel_7 = new JLabel("Value:");
+		lblNewLabel_7.setBounds(20, 248, 88, 14);
+		contentPanel.add(lblNewLabel_7);
+		
+		tfValue = new JTextField();
+		tfValue.setBounds(154, 245, 210, 20);
+		contentPanel.add(tfValue);
+		tfValue.setColumns(10);
+		
+		JLabel lblNewLabel_8 = new JLabel("Charge Rate:");
+		lblNewLabel_8.setBounds(20, 273, 124, 14);
+		contentPanel.add(lblNewLabel_8);
+		
+		tfChargeRate = new JTextField();
+		tfChargeRate.setBounds(154, 270, 210, 20);
+		contentPanel.add(tfChargeRate);
+		tfChargeRate.setColumns(10);
+	}
+	
+	public void init()
+	{
+		if (rdbtnSailBoat.isSelected())
+		{
+			tfMastHeight.setEnabled(true);
+			tfSailArea.setEnabled(true);
+			tfHorsePower.setEnabled(false);
+		}
+		else
+		{
+			tfMastHeight.setEnabled(false);
+			tfSailArea.setEnabled(false);
+			tfHorsePower.setEnabled(true);
+		}
+	}
+	
+	public void clearText() {
+		tfOwnerID.setText("");
+		tfHeight.setText("");;
+		tfLength.setText("");;
+		tfWidth.setText("");;
+		tfMastHeight.setText("");
+		tfSailArea.setText("");
+		tfHorsePower.setText("");
+		tfValue.setText("");
+		tfChargeRate.setText("");
 	}
 }

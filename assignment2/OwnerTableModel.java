@@ -4,7 +4,7 @@ import javax.swing.table.AbstractTableModel;
 
 public class OwnerTableModel extends AbstractTableModel{
 
-	static String[] title = {"ID", "Name", "Address", "TotalMonthlyCharge"};
+	static String[] title = {"ID", "Name", "Address", "Total Boats", "TotalMonthlyCharge"};
 	private BoatStorage bs;
 	
 	public OwnerTableModel(BoatStorage bs)
@@ -35,7 +35,7 @@ public class OwnerTableModel extends AbstractTableModel{
 	}
 	
 	public Object getValueAt(int row, int col) {
-		ArrayList<Owner> owner = BoatStorageGUI.getBS().;
+		Owner owner = bs.getspecifiedOwner(row+1);
 		switch (col)
 		{
 			case 0:
@@ -45,6 +45,8 @@ public class OwnerTableModel extends AbstractTableModel{
 			case 2:
 				return owner.getAddress();
 			case 3:
+				return owner.getBoats().size();
+			case 4:
 				return owner.totalOwnerCharge();
 			default:
 				return "N/A";

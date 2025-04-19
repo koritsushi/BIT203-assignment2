@@ -66,7 +66,7 @@ public class BoatStorageGUI extends JFrame {
 	public BoatStorageGUI() {
 		setTitle("BoatStorage Management B2000511");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 350);
+		setBounds(100, 100, 450, 450);
 		
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
@@ -119,6 +119,11 @@ public class BoatStorageGUI extends JFrame {
 		{
 			public void actionPerformed(ActionEvent e)
 			{
+				if (bs.getOwners().size() == 0)
+				{
+					JOptionPane.showMessageDialog(BoatStorageGUI.this, "No Owner has been registered yet!");
+					return ;
+				}
 				int returnValue = jfc.showSaveDialog(BoatStorageGUI.this);
 				if (returnValue == JFileChooser.APPROVE_OPTION) {
 					File file = jfc.getSelectedFile();
@@ -162,9 +167,8 @@ public class BoatStorageGUI extends JFrame {
 		panel.add(lblTitle);
 		
 		JButton btnRegisterOwner = new JButton("Register Owner");
-		sl_panel.putConstraint(SpringLayout.NORTH, btnRegisterOwner, 22, SpringLayout.SOUTH, lblTitle);
+		sl_panel.putConstraint(SpringLayout.NORTH, btnRegisterOwner, 16, SpringLayout.SOUTH, lblTitle);
 		sl_panel.putConstraint(SpringLayout.WEST, btnRegisterOwner, 80, SpringLayout.WEST, panel);
-		sl_panel.putConstraint(SpringLayout.SOUTH, btnRegisterOwner, -210, SpringLayout.SOUTH, panel);
 		sl_panel.putConstraint(SpringLayout.EAST, btnRegisterOwner, -90, SpringLayout.EAST, panel);
 		btnRegisterOwner.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -181,15 +185,22 @@ public class BoatStorageGUI extends JFrame {
 		panel.add(btnRegisterOwner);
 		
 		JButton btnRegisterBoat = new JButton("Register Boat");
-		sl_panel.putConstraint(SpringLayout.NORTH, btnRegisterBoat, 6, SpringLayout.SOUTH, btnRegisterOwner);
-		sl_panel.putConstraint(SpringLayout.WEST, btnRegisterBoat, 0, SpringLayout.WEST, btnRegisterOwner);
-		sl_panel.putConstraint(SpringLayout.SOUTH, btnRegisterBoat, -181, SpringLayout.SOUTH, panel);
-		sl_panel.putConstraint(SpringLayout.EAST, btnRegisterBoat, 0, SpringLayout.EAST, btnRegisterOwner);
+		sl_panel.putConstraint(SpringLayout.SOUTH, btnRegisterOwner, -6, SpringLayout.NORTH, btnRegisterBoat);
+		sl_panel.putConstraint(SpringLayout.SOUTH, btnRegisterBoat, -275, SpringLayout.SOUTH, panel);
+		sl_panel.putConstraint(SpringLayout.NORTH, btnRegisterBoat, 75, SpringLayout.NORTH, panel);
+		sl_panel.putConstraint(SpringLayout.WEST, btnRegisterBoat, 80, SpringLayout.WEST, panel);
+		sl_panel.putConstraint(SpringLayout.EAST, btnRegisterBoat, -90, SpringLayout.EAST, panel);
 		btnRegisterBoat.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				if (bs.getOwners().size() == 0)
+				{
+					JOptionPane.showMessageDialog(BoatStorageGUI.this, "No Owner has been registered yet!");
+					return ;
+				}
 				try {
 					RegisterBoatGUI RB = new RegisterBoatGUI();
 					RB.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+					RB.init();
 					RB.setVisible(true);
 				} catch (Exception rgex) {
 					rgex.printStackTrace();
@@ -201,20 +212,29 @@ public class BoatStorageGUI extends JFrame {
 		JButton btnDisplayBoatCount = new JButton("Display Total Boat Count");
 		sl_panel.putConstraint(SpringLayout.NORTH, btnDisplayBoatCount, 6, SpringLayout.SOUTH, btnRegisterBoat);
 		sl_panel.putConstraint(SpringLayout.WEST, btnDisplayBoatCount, 0, SpringLayout.WEST, btnRegisterOwner);
-		sl_panel.putConstraint(SpringLayout.EAST, btnDisplayBoatCount, 0, SpringLayout.EAST, btnRegisterOwner);
+		sl_panel.putConstraint(SpringLayout.SOUTH, btnDisplayBoatCount, -240, SpringLayout.SOUTH, panel);
+		sl_panel.putConstraint(SpringLayout.EAST, btnDisplayBoatCount, -90, SpringLayout.EAST, panel);
 		btnDisplayBoatCount.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				JOptionPane.showMessageDialog(BoatStorageGUI.this, "Total Boat Count:" + bs.getBoats().size() +
+						"\n SailBoat:" + bs.getTotalSailBoats() + "\n Motorboat:" + bs.getTotalMotorBoat());
 			}
 		});
 		panel.add(btnDisplayBoatCount);
 		
 		JButton btnDisplayAllOwner = new JButton("Display All Owner Details");
 		sl_panel.putConstraint(SpringLayout.NORTH, btnDisplayAllOwner, 6, SpringLayout.SOUTH, btnDisplayBoatCount);
-		sl_panel.putConstraint(SpringLayout.WEST, btnDisplayAllOwner, 80, SpringLayout.WEST, panel);
+		sl_panel.putConstraint(SpringLayout.WEST, btnDisplayAllOwner, 0, SpringLayout.WEST, btnRegisterOwner);
+		sl_panel.putConstraint(SpringLayout.SOUTH, btnDisplayAllOwner, 35, SpringLayout.SOUTH, btnDisplayBoatCount);
 		sl_panel.putConstraint(SpringLayout.EAST, btnDisplayAllOwner, 54, SpringLayout.EAST, lblTitle);
 		btnDisplayAllOwner.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
+					if (bs.getOwners().size() == 0)
+					{
+						JOptionPane.showMessageDialog(BoatStorageGUI.this, "No Owner has been registered yet!");
+						return ;
+					}
 					DisplayOwnersGUI DO = new DisplayOwnersGUI();
 					DO.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 					DO.setVisible(true);
@@ -226,7 +246,7 @@ public class BoatStorageGUI extends JFrame {
 		panel.add(btnDisplayAllOwner);
 		
 		JButton btnExit = new JButton("Exit");
-		sl_panel.putConstraint(SpringLayout.WEST, btnExit, 0, SpringLayout.WEST, btnRegisterOwner);
+		sl_panel.putConstraint(SpringLayout.WEST, btnExit, 80, SpringLayout.WEST, panel);
 		sl_panel.putConstraint(SpringLayout.EAST, btnExit, 0, SpringLayout.EAST, btnRegisterOwner);
 		btnExit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -236,24 +256,40 @@ public class BoatStorageGUI extends JFrame {
 		panel.add(btnExit);
 		
 		JButton btnDisplayOwnerTotalMonthly = new JButton("Display Owner Total Monthly Charge");
+		sl_panel.putConstraint(SpringLayout.NORTH, btnDisplayOwnerTotalMonthly, 6, SpringLayout.SOUTH, btnDisplayAllOwner);
+		sl_panel.putConstraint(SpringLayout.WEST, btnDisplayOwnerTotalMonthly, 0, SpringLayout.WEST, btnRegisterOwner);
+		sl_panel.putConstraint(SpringLayout.SOUTH, btnDisplayOwnerTotalMonthly, 35, SpringLayout.SOUTH, btnDisplayAllOwner);
+		sl_panel.putConstraint(SpringLayout.EAST, btnDisplayOwnerTotalMonthly, 0, SpringLayout.EAST, btnRegisterOwner);
 		btnDisplayOwnerTotalMonthly.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				if (bs.getOwners().size() == 0)
+				{
+					JOptionPane.showMessageDialog(BoatStorageGUI.this, "No Owner has been registered yet!");
+					return ;
+				}
+				try {
+					CheckOwnerGUI co = new CheckOwnerGUI();
+					co.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+					co.setVisible(true);
+				} catch (Exception coex) {
+					coex.printStackTrace();
+				}
 			}
 		});
-		sl_panel.putConstraint(SpringLayout.NORTH, btnDisplayOwnerTotalMonthly, 7, SpringLayout.SOUTH, btnDisplayAllOwner);
-		sl_panel.putConstraint(SpringLayout.WEST, btnDisplayOwnerTotalMonthly, 0, SpringLayout.WEST, btnRegisterOwner);
-		sl_panel.putConstraint(SpringLayout.EAST, btnDisplayOwnerTotalMonthly, 0, SpringLayout.EAST, btnRegisterOwner);
 		panel.add(btnDisplayOwnerTotalMonthly);
 		
 		JButton btnTotalMonthlyCharge = new JButton("Display Monthly Revenue");
-		btnTotalMonthlyCharge.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-		sl_panel.putConstraint(SpringLayout.NORTH, btnExit, 20, SpringLayout.SOUTH, btnTotalMonthlyCharge);
+		sl_panel.putConstraint(SpringLayout.NORTH, btnExit, 26, SpringLayout.SOUTH, btnTotalMonthlyCharge);
+		sl_panel.putConstraint(SpringLayout.SOUTH, btnExit, 55, SpringLayout.SOUTH, btnTotalMonthlyCharge);
 		sl_panel.putConstraint(SpringLayout.NORTH, btnTotalMonthlyCharge, 6, SpringLayout.SOUTH, btnDisplayOwnerTotalMonthly);
 		sl_panel.putConstraint(SpringLayout.WEST, btnTotalMonthlyCharge, 0, SpringLayout.WEST, btnRegisterOwner);
-		sl_panel.putConstraint(SpringLayout.EAST, btnTotalMonthlyCharge, 0, SpringLayout.EAST, btnRegisterOwner);
+		sl_panel.putConstraint(SpringLayout.SOUTH, btnTotalMonthlyCharge, 35, SpringLayout.SOUTH, btnDisplayOwnerTotalMonthly);
+		sl_panel.putConstraint(SpringLayout.EAST, btnTotalMonthlyCharge, -90, SpringLayout.EAST, panel);
+		btnTotalMonthlyCharge.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JOptionPane.showMessageDialog(BoatStorageGUI.this, "BoatStorage Total Monthly Revenue:\nRM" + bs.getTotalCharges());
+			}
+		});
 		panel.add(btnTotalMonthlyCharge);
 		
 	}

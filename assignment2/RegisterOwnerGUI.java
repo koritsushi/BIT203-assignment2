@@ -16,12 +16,13 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.SpringLayout;
+import javax.swing.JTextArea;
 
 public class RegisterOwnerGUI extends JDialog {
 
 	private static final long serialVersionUID = 1L;
 	private JTextField tfName;
-	private JTextField tfAddress;
+	private JTextArea taAddress;
 	/**
 	 * Launch the application.
 	 */
@@ -42,7 +43,7 @@ public class RegisterOwnerGUI extends JDialog {
 	private void clearText()
 	{
 		tfName.setText("");
-		tfAddress.setText("");
+		taAddress.setText("");
 	}
 	
 	public RegisterOwnerGUI() {
@@ -68,14 +69,13 @@ public class RegisterOwnerGUI extends JDialog {
 		lblNewLabel_1.setBounds(51, 79, 72, 14);
 		panel.add(lblNewLabel_1);
 		
-		tfAddress = new JTextField();
-		tfAddress.setBounds(174, 82, 155, 59);
-		panel.add(tfAddress);
-		tfAddress.setColumns(10);
-		
 		JLabel lblNewLabel_2 = new JLabel("Register Owner Details");
 		lblNewLabel_2.setBounds(127, 11, 127, 14);
 		panel.add(lblNewLabel_2);
+		
+		taAddress = new JTextArea();
+		taAddress.setBounds(174, 82, 155, 65);
+		panel.add(taAddress);
 		
 		JPanel panel_1 = new JPanel();
 		panel_1.setBounds(10, 219, 414, 42);
@@ -104,12 +104,19 @@ public class RegisterOwnerGUI extends JDialog {
 		btnRegisterOwner.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String name = tfName.getText();
-				String address = tfAddress.getText();
+				String address = taAddress.getText();
 				
-				if (name.isEmpty() || address.isEmpty())
+				if (name.isEmpty())
 				{	
-					JOptionPane.showMessageDialog(RegisterOwnerGUI.this, "Please fill up all fields!");
+					JOptionPane.showMessageDialog(RegisterOwnerGUI.this, "Please fill in the name field!");
 					tfName.requestFocus();
+					return ;
+				}
+				else if (address.isEmpty())
+				{
+					JOptionPane.showMessageDialog(RegisterOwnerGUI.this, "Please fill in the address field!");
+					taAddress.requestFocus();
+					return ;
 				}
 				Owner o = new Owner(name, address);
 				BoatStorageGUI.getBS().addOwner(o);
