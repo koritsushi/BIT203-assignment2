@@ -106,13 +106,13 @@ public class RegisterOwnerGUI extends JDialog {
 				String name = tfName.getText();
 				String address = taAddress.getText();
 				
-				if (name.isEmpty())
+				if (name.trim().isEmpty())
 				{	
 					JOptionPane.showMessageDialog(RegisterOwnerGUI.this, "Please fill in the name field!");
 					tfName.requestFocus();
 					return ;
 				}
-				else if (address.isEmpty())
+				else if (address.trim().isEmpty())
 				{
 					JOptionPane.showMessageDialog(RegisterOwnerGUI.this, "Please fill in the address field!");
 					taAddress.requestFocus();

@@ -91,7 +91,27 @@ public class BoatStorage implements Serializable {
 	public Owner getspecifiedOwner(int idNumber)
 	{
 		return getOwners().stream()
-				.filter(owner -> idNumber == owner.getIdNumber())
+				.filter(o ->  o.getIdNumber() == idNumber)
+				.findAny()
+				.orElse(null);
+	}
+	
+	public void updatespecifiedOwner(int idNumber, Owner owner)
+	{
+		getspecifiedOwner(idNumber).setName(owner.getName());;
+		getspecifiedOwner(idNumber).setAddress(owner.getAddress());;
+	}
+	
+	/**
+	 * Search through the list and find owner id Number same as the parameter
+	 * and return back the match idNumber owner object
+	 * @param idNumber
+	 * @return
+	 */
+	public Boat getspecifiedBoat(int idNumber)
+	{
+		return getBoats().stream()
+				.filter(b -> b.getIdNumber() == idNumber)
 				.findAny()
 				.orElse(null);
 	}

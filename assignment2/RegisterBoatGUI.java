@@ -56,20 +56,22 @@ public class RegisterBoatGUI extends JDialog {
 	 */
 	public RegisterBoatGUI() {
 		bs = BoatStorageGUI.getBS();
-		setBounds(100, 100, 450, 400);
+		setBounds(100, 100, 450, 450);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
 		{
 			JPanel buttonPane = new JPanel();
-			buttonPane.setBounds(0, 316, 434, 34);
+			buttonPane.setBounds(0, 377, 434, 34);
 			contentPanel.add(buttonPane);
 			buttonPane.setLayout(null);
 			{
 				JButton btnRegister = new JButton("Register");
 				btnRegister.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
+						Boat boat;
+						
 						String id = tfOwnerID.getText();
 						if (id.isEmpty())
 						{
@@ -113,44 +115,50 @@ public class RegisterBoatGUI extends JDialog {
 								double nwidth = Double.parseDouble(width);
 								double nValue = Double.parseDouble(value);
 								double nChargeRate = Double.parseDouble(chargeRate);
+								
+								
 								if (rdbtnSailBoat.isSelected())
 								{
 									String mastHeight = tfMastHeight.getText();
 									String sailArea = tfSailArea.getText();
 									if (mastHeight.isEmpty())
 									{
-										JOptionPane.showMessageDialog(RegisterBoatGUI.this, "Please enter the value for mast height!");
+										JOptionPane.showMessageDialog(RegisterBoatGUI.this, 
+												"Please enter the value for mast height!");
 										tfMastHeight.requestFocus();
 										return ;
 									}
 									else if (sailArea.isEmpty())
 									{
-										JOptionPane.showMessageDialog(RegisterBoatGUI.this, "Please enter the value for mast height!");
+										JOptionPane.showMessageDialog(RegisterBoatGUI.this, 
+												"Please enter the value for mast height!");
 										tfSailArea.requestFocus();
 										return ;
 									}
 									double nmastHeight = Double.parseDouble(mastHeight);
 									double nsailArea = Double.parseDouble(sailArea);
 									
-									Boat sailBoat = new SailBoat(owner, nheight, nlength, nValue, nChargeRate, nwidth, nmastHeight, nsailArea);
-									owner.addBoat(sailBoat);
-									bs.addBoat(sailBoat);
+									boat = new SailBoat(owner, nheight, nlength, nwidth, nValue, nChargeRate, nmastHeight, nsailArea);
+									owner.addBoat(boat);
+									bs.addBoat(boat);
 								}
 								else
 								{
 									String horsePower = tfHorsePower.getText();
 									if (horsePower.isEmpty())
 									{
-										JOptionPane.showMessageDialog(RegisterBoatGUI.this, "Please enter the value for horsePower!");
+										JOptionPane.showMessageDialog(RegisterBoatGUI.this, 
+												"Please enter the value for horsePower!");
 										tfHorsePower.requestFocus();
 										return ;
 									}
 									double nHorsePower = Double.parseDouble(horsePower);
-									Boat MotorBoat = new MotorBoat(owner, nheight, nlength, nValue, nChargeRate, nwidth, nHorsePower);
-									owner.addBoat(MotorBoat);
-									bs.addBoat(MotorBoat);
+									boat = new MotorBoat(owner, nheight, nlength, nwidth, nValue, nChargeRate, nHorsePower);
+									owner.addBoat(boat);
+									bs.addBoat(boat);
 								}
-								JOptionPane.showMessageDialog(RegisterBoatGUI.this, "Successfully register boat to owner:" + owner.getIdNumber() + "!");
+								JOptionPane.showMessageDialog(RegisterBoatGUI.this, "Successfully register boat id:" 
+										+ boat.getIdNumber() + " to owner:" + owner.getIdNumber() + "!");
 								clearText();
 							} catch (NumberFormatException RGB) {
 								JOptionPane.showMessageDialog(RegisterBoatGUI.this, 
@@ -187,76 +195,76 @@ public class RegisterBoatGUI extends JDialog {
 		}
 		{
 			JLabel label = new JLabel("Boat Type:");
-			label.setBounds(20, 55, 109, 14);
+			label.setBounds(49, 106, 109, 14);
 			contentPanel.add(label);
 		}
 		
 		JLabel lblNewLabel = new JLabel("Owner ID:");
-		lblNewLabel.setBounds(20, 21, 109, 14);
+		lblNewLabel.setBounds(49, 72, 109, 14);
 		contentPanel.add(lblNewLabel);
 		
 		tfOwnerID = new JTextField();
-		tfOwnerID.setBounds(154, 16, 210, 20);
+		tfOwnerID.setBounds(183, 67, 210, 20);
 		contentPanel.add(tfOwnerID);
 		tfOwnerID.setColumns(10);
 		
 		JLabel lblNewLabel_1 = new JLabel("Height:");
-		lblNewLabel_1.setBounds(20, 98, 88, 14);
+		lblNewLabel_1.setBounds(49, 149, 88, 14);
 		
 		contentPanel.add(lblNewLabel_1);
 		
 		tfHeight = new JTextField();
-		tfHeight.setBounds(154, 95, 210, 20);
+		tfHeight.setBounds(183, 146, 210, 20);
 		contentPanel.add(tfHeight);
 		tfHeight.setColumns(10);
 		
 		JLabel lblNewLabel_2 = new JLabel("Length:");
-		lblNewLabel_2.setBounds(20, 123, 88, 14);
+		lblNewLabel_2.setBounds(49, 174, 88, 14);
 		contentPanel.add(lblNewLabel_2);
 		
 		tfLength = new JTextField();
-		tfLength.setBounds(154, 120, 210, 20);
+		tfLength.setBounds(183, 171, 210, 20);
 		contentPanel.add(tfLength);
 		tfLength.setColumns(10);
 		
 		JLabel lblNewLabel_3 = new JLabel("Width:");
-		lblNewLabel_3.setBounds(20, 148, 88, 14);
+		lblNewLabel_3.setBounds(49, 199, 88, 14);
 		contentPanel.add(lblNewLabel_3);
 		
 		tfWidth = new JTextField();
-		tfWidth.setBounds(154, 145, 210, 20);
+		tfWidth.setBounds(183, 196, 210, 20);
 		contentPanel.add(tfWidth);
 		tfWidth.setColumns(10);
 		
 		JLabel lblNewLabel_4 = new JLabel("Mast Height:");
-		lblNewLabel_4.setBounds(20, 173, 109, 14);
+		lblNewLabel_4.setBounds(49, 224, 109, 14);
 		contentPanel.add(lblNewLabel_4);
 		
 		tfMastHeight = new JTextField();
-		tfMastHeight.setBounds(154, 170, 210, 20);
+		tfMastHeight.setBounds(183, 221, 210, 20);
 		contentPanel.add(tfMastHeight);
 		tfMastHeight.setColumns(10);
 		
 		JLabel lblNewLabel_5 = new JLabel("Sail Area:");
-		lblNewLabel_5.setBounds(20, 198, 88, 14);
+		lblNewLabel_5.setBounds(49, 249, 88, 14);
 		contentPanel.add(lblNewLabel_5);
 		
 		tfSailArea = new JTextField();
-		tfSailArea.setBounds(154, 195, 210, 20);
+		tfSailArea.setBounds(183, 246, 210, 20);
 		contentPanel.add(tfSailArea);
 		tfSailArea.setColumns(10);
 		
-		JLabel lblNewLabel_6 = new JLabel("Horse Power:");
-		lblNewLabel_6.setBounds(20, 223, 124, 14);
+		JLabel lblNewLabel_6 = new JLabel("Horsepower:");
+		lblNewLabel_6.setBounds(49, 274, 124, 14);
 		contentPanel.add(lblNewLabel_6);
 		
 		tfHorsePower = new JTextField();
-		tfHorsePower.setBounds(154, 220, 210, 20);
+		tfHorsePower.setBounds(183, 271, 210, 20);
 		contentPanel.add(tfHorsePower);
 		tfHorsePower.setColumns(10);
 		
 		JPanel rbpanel = new JPanel();
-		rbpanel.setBounds(154, 55, 210, 29);
+		rbpanel.setBounds(183, 106, 210, 29);
 		contentPanel.add(rbpanel);
 		{
 			rdbtnSailBoat = new JRadioButton("SailBoat");
@@ -275,22 +283,26 @@ public class RegisterBoatGUI extends JDialog {
 		}
 		
 		JLabel lblNewLabel_7 = new JLabel("Value:");
-		lblNewLabel_7.setBounds(20, 248, 88, 14);
+		lblNewLabel_7.setBounds(49, 299, 88, 14);
 		contentPanel.add(lblNewLabel_7);
 		
 		tfValue = new JTextField();
-		tfValue.setBounds(154, 245, 210, 20);
+		tfValue.setBounds(183, 296, 210, 20);
 		contentPanel.add(tfValue);
 		tfValue.setColumns(10);
 		
 		JLabel lblNewLabel_8 = new JLabel("Charge Rate:");
-		lblNewLabel_8.setBounds(20, 273, 124, 14);
+		lblNewLabel_8.setBounds(49, 324, 124, 14);
 		contentPanel.add(lblNewLabel_8);
 		
 		tfChargeRate = new JTextField();
-		tfChargeRate.setBounds(154, 270, 210, 20);
+		tfChargeRate.setBounds(183, 321, 210, 20);
 		contentPanel.add(tfChargeRate);
 		tfChargeRate.setColumns(10);
+		
+		JLabel lblNewLabel_9 = new JLabel("Create Boat Details");
+		lblNewLabel_9.setBounds(166, 32, 109, 14);
+		contentPanel.add(lblNewLabel_9);
 	}
 	
 	public void init()
@@ -300,11 +312,14 @@ public class RegisterBoatGUI extends JDialog {
 			tfMastHeight.setEnabled(true);
 			tfSailArea.setEnabled(true);
 			tfHorsePower.setEnabled(false);
+			tfHorsePower.setText("");
 		}
 		else
 		{
 			tfMastHeight.setEnabled(false);
 			tfSailArea.setEnabled(false);
+			tfMastHeight.setText("");
+			tfSailArea.setText("");
 			tfHorsePower.setEnabled(true);
 		}
 	}
