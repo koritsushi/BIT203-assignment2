@@ -35,7 +35,7 @@ public class OwnerTableModel extends AbstractTableModel{
 	}
 	
 	public Object getValueAt(int row, int col) {
-		Owner owner = BoatStorageGUI.getBS().getspecifiedOwner(row + 1);
+		ArrayList<Owner> owner = BoatStorageGUI.getBS().;
 		switch (col)
 		{
 			case 0:
