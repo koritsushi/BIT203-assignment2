@@ -2,6 +2,7 @@ package assignment2;
 
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 /**
@@ -130,6 +131,22 @@ public class BoatStorage {
 				.sorted(Comparator.comparing(Owner::totalOwnerCharge))
 				.map(Owner::toName)
 				.collect(Collectors.joining("\n"));
+	}
+	
+	public ArrayList<Owner> sortedOwnerNameObjects()
+	{
+		return (ArrayList<Owner>) getOwners()
+									.stream()
+									.sorted(Comparator.comparing(Owner::getName))
+									.collect(Collectors.toList());
+	}
+	
+	public ArrayList<Owner> sortedOwnerTotalMonthlyChargeObjects()
+	{
+		return (ArrayList<Owner>) getOwners()
+									.stream()
+									.sorted(Comparator.comparing(Owner::totalOwnerCharge))
+									.collect(Collectors.toList());
 	}
 	
 	/**
