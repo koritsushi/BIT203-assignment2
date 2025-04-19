@@ -17,6 +17,11 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.ActionEvent;
 
+
+/**
+ * @author Mah_LiYuan_B2000511
+ * UpdateBoatGUI Class
+ */
 public class UpdateBoatGUI extends JDialog {
 
 	private static final long serialVersionUID = 1L;

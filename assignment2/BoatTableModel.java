@@ -2,6 +2,12 @@ package assignment2;
 
 import javax.swing.table.AbstractTableModel;
 
+/**
+ * @author Mah_LiYuan_B2000511
+ * Boat Table Model Class
+ * this class inherits the function from AbstractTableModel
+ * to allow it to display Boat details in a table cell
+ */
 public class BoatTableModel extends AbstractTableModel {
 
 	static String[] title = {"ID", "Owner ID", "Height", "Length", "Width", "Mast Height", "Sail Area", "Horsepower", "Value", "Charge Rate"};

@@ -31,6 +31,10 @@ import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 import java.awt.event.ActionEvent;
 
+/**
+ * @author Mah_LiYuan_B2000511
+ * BoatStorageGUI class
+ */
 public class BoatStorageGUI extends JFrame {
 
 	private static final long serialVersionUID = 1L;

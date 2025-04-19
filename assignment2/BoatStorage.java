@@ -96,6 +96,13 @@ public class BoatStorage implements Serializable {
 				.orElse(null);
 	}
 	
+	
+	/**
+	 * Search through the list and find owner id Number same as the parameter
+	 * and update the match idNumber owner object
+	 * @param idNumber
+	 * @param owner
+	 */
 	public void updatespecifiedOwner(int idNumber, Owner owner)
 	{
 		getspecifiedOwner(idNumber).setName(owner.getName());;
@@ -154,6 +161,10 @@ public class BoatStorage implements Serializable {
 				.collect(Collectors.joining("\n"));
 	}
 	
+	/**
+	 *  get Owner list back as sorted list sorted by name
+	 * @return owners ArrayList<>
+	 */
 	public ArrayList<Owner> sortedOwnerNameObjects()
 	{
 		return (ArrayList<Owner>) getOwners()
@@ -161,7 +172,11 @@ public class BoatStorage implements Serializable {
 									.sorted(Comparator.comparing(Owner::getName))
 									.collect(Collectors.toList());
 	}
-	
+
+	/**
+	 * get Owner list back as sorted list sorted by total monthly charge
+	 * @return owners ArrayList<>
+	 */
 	public ArrayList<Owner> sortedOwnerTotalMonthlyChargeObjects()
 	{
 		return (ArrayList<Owner>) getOwners()

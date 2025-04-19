@@ -13,6 +13,10 @@ import javax.swing.border.EmptyBorder;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
+/**
+ * @author Mah_LiYuan_B2000511
+ * DisplayBoatsGUI class
+ */
 public class DisplayBoatsGUI extends JDialog {
 
 	private static final long serialVersionUID = 1L;

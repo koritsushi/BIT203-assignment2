@@ -18,6 +18,10 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.ActionEvent;
 
+/**
+ * @author Mah_LiYuan_B2000511
+ * RegisterBoatGUI class
+ */
 public class RegisterBoatGUI extends JDialog {
 
 	private static final long serialVersionUID = 1L;

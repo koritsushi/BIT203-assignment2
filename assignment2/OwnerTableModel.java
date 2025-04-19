@@ -2,6 +2,12 @@ package assignment2;
 
 import javax.swing.table.AbstractTableModel;
 
+/**
+ * @author Mah_LiYuan_B2000511
+ * Owner Table Model Class
+ * his class inherits the function from AbstractTableModel
+ * to allow it to display Owner details in a table cell
+ */
 public class OwnerTableModel extends AbstractTableModel{
 
 	static String[] title = {"ID", "Name", "Address", "Total Boats", "TotalMonthlyCharge"};

@@ -18,6 +18,10 @@ import javax.swing.JTextField;
 import javax.swing.SpringLayout;
 import javax.swing.JTextArea;
 
+/**
+ * @author Mah_LiYuan_B2000511
+ * RegisterOwnerGUI class
+ */
 public class RegisterOwnerGUI extends JDialog {
 
 	private static final long serialVersionUID = 1L;
