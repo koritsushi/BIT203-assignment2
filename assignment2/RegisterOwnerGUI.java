@@ -21,6 +21,7 @@ import javax.swing.JTextArea;
 /**
  * @author Mah_LiYuan_B2000511
  * RegisterOwnerGUI class
+ * this graphical user interface allow admin to register owner to boat Storage
  */
 public class RegisterOwnerGUI extends JDialog {
 
@@ -86,6 +87,7 @@ public class RegisterOwnerGUI extends JDialog {
 		getContentPane().add(panel_1);
 		panel_1.setLayout(null);
 		
+		//close this gui window
 		JButton btnBack = new JButton("Back to Main Menu");
 		btnBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -103,7 +105,7 @@ public class RegisterOwnerGUI extends JDialog {
 		});
 		btnClear.setBounds(224, 11, 89, 23);
 		panel_1.add(btnClear);
-		
+		//register owner details and insert into boatstorage object 
 		JButton btnRegisterOwner = new JButton("Register");
 		btnRegisterOwner.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

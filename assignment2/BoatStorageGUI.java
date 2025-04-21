@@ -34,6 +34,8 @@ import java.awt.event.ActionEvent;
 /**
  * @author Mah_LiYuan_B2000511
  * BoatStorageGUI class
+ * main gui for all the program functionalities
+ * such as create, read and update
  */
 public class BoatStorageGUI extends JFrame {
 
@@ -81,6 +83,7 @@ public class BoatStorageGUI extends JFrame {
 		jfc = new JFileChooser();
 		bs = new BoatStorage();
 		
+		//read file and open
 		JMenuItem mntmOpen = new JMenuItem("Open");
 		mntmOpen.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -120,6 +123,7 @@ public class BoatStorageGUI extends JFrame {
 		});
 		mnFile.add(mntmOpen);
 		
+		//save objects into file and allow the program to open the file
 		JMenuItem mntmSave = new JMenuItem("Save");
 		mntmSave.addActionListener(new ActionListener() 
 		{
@@ -173,6 +177,7 @@ public class BoatStorageGUI extends JFrame {
 		sl_panel.putConstraint(SpringLayout.EAST, lblTitle, -144, SpringLayout.EAST, panel);
 		panel.add(lblTitle);
 		
+		//open Register Owner GUI Dialog 
 		JButton btnRegisterOwner = new JButton("Register Owner");
 		sl_panel.putConstraint(SpringLayout.NORTH, btnRegisterOwner, 16, SpringLayout.SOUTH, lblTitle);
 		sl_panel.putConstraint(SpringLayout.WEST, btnRegisterOwner, 80, SpringLayout.WEST, panel);
@@ -192,6 +197,7 @@ public class BoatStorageGUI extends JFrame {
 		});
 		panel.add(btnRegisterOwner);
 		
+		//open Register Boat GUI Dialog
 		JButton btnRegisterBoat = new JButton("Register Boat");
 		sl_panel.putConstraint(SpringLayout.NORTH, btnRegisterBoat, 6, SpringLayout.SOUTH, btnRegisterOwner);
 		sl_panel.putConstraint(SpringLayout.WEST, btnRegisterBoat, 80, SpringLayout.WEST, panel);
@@ -216,6 +222,7 @@ public class BoatStorageGUI extends JFrame {
 		});
 		panel.add(btnRegisterBoat);
 		
+		//Display Total Boat Count GUI Dialog 
 		JButton btnDisplayBoatCount = new JButton("Display Total Boat Count");
 		sl_panel.putConstraint(SpringLayout.WEST, btnDisplayBoatCount, 0, SpringLayout.WEST, btnRegisterOwner);
 		sl_panel.putConstraint(SpringLayout.EAST, btnDisplayBoatCount, -90, SpringLayout.EAST, panel);
@@ -227,6 +234,7 @@ public class BoatStorageGUI extends JFrame {
 		});
 		panel.add(btnDisplayBoatCount);
 		
+		//Display All Owner Details GUI Dialog
 		JButton btnDisplayAllOwner = new JButton("Display All Owner Details");
 		sl_panel.putConstraint(SpringLayout.NORTH, btnDisplayAllOwner, 214, SpringLayout.NORTH, panel);
 		sl_panel.putConstraint(SpringLayout.SOUTH, btnDisplayBoatCount, -6, SpringLayout.NORTH, btnDisplayAllOwner);
@@ -250,6 +258,7 @@ public class BoatStorageGUI extends JFrame {
 		});
 		panel.add(btnDisplayAllOwner);
 		
+		//Exit the program
 		JButton btnExit = new JButton("Exit");
 		sl_panel.putConstraint(SpringLayout.NORTH, btnExit, 390, SpringLayout.NORTH, panel);
 		sl_panel.putConstraint(SpringLayout.WEST, btnExit, 0, SpringLayout.WEST, btnRegisterOwner);
@@ -262,6 +271,7 @@ public class BoatStorageGUI extends JFrame {
 		});
 		panel.add(btnExit);
 		
+		//Display Owner Total Monthly Charge GUI Dialog
 		JButton btnDisplayOwnerTotalMonthly = new JButton("Display Owner Total Monthly Charge");
 		sl_panel.putConstraint(SpringLayout.WEST, btnDisplayOwnerTotalMonthly, 0, SpringLayout.WEST, btnRegisterOwner);
 		sl_panel.putConstraint(SpringLayout.SOUTH, btnDisplayOwnerTotalMonthly, -116, SpringLayout.SOUTH, panel);
@@ -284,6 +294,7 @@ public class BoatStorageGUI extends JFrame {
 		});
 		panel.add(btnDisplayOwnerTotalMonthly);
 		
+		//Display BoatStorage Total Monthly Revenue GUI Dialog
 		JButton btnTotalMonthlyCharge = new JButton("Display Monthly Revenue");
 		sl_panel.putConstraint(SpringLayout.NORTH, btnTotalMonthlyCharge, 6, SpringLayout.SOUTH, btnDisplayOwnerTotalMonthly);
 		sl_panel.putConstraint(SpringLayout.WEST, btnTotalMonthlyCharge, 0, SpringLayout.WEST, btnRegisterOwner);
@@ -296,6 +307,7 @@ public class BoatStorageGUI extends JFrame {
 		});
 		panel.add(btnTotalMonthlyCharge);
 		
+		//Display All Boat Details GUI Dialog
 		JButton btnDisplayBoat = new JButton("Display All Boat Details");
 		sl_panel.putConstraint(SpringLayout.SOUTH, btnDisplayAllOwner, -6, SpringLayout.NORTH, btnDisplayBoat);
 		sl_panel.putConstraint(SpringLayout.NORTH, btnDisplayBoat, 249, SpringLayout.NORTH, panel);
@@ -321,6 +333,7 @@ public class BoatStorageGUI extends JFrame {
 		});
 		panel.add(btnDisplayBoat);
 		
+		//Display Update Owner Details GUI Dialog
 		JButton btnNewButton = new JButton("Update Owner Details");
 		sl_panel.putConstraint(SpringLayout.NORTH, btnDisplayBoatCount, 40, SpringLayout.SOUTH, btnNewButton);
 		btnNewButton.addActionListener(new ActionListener() {
@@ -346,6 +359,7 @@ public class BoatStorageGUI extends JFrame {
 		sl_panel.putConstraint(SpringLayout.EAST, btnNewButton, 0, SpringLayout.EAST, btnRegisterOwner);
 		panel.add(btnNewButton);
 		
+		//Display Update Boat Details GUI Dialog
 		JButton btnUpdateBoat = new JButton("Update Boat Details");
 		btnUpdateBoat.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

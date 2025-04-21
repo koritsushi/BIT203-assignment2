@@ -16,6 +16,7 @@ import java.awt.event.ActionEvent;
 /**
  * @author Mah_LiYuan_B2000511
  * DisplayBoatsGUI class
+ * this graphical user interface allow admin to view all boat details in jtable gui
  */
 public class DisplayBoatsGUI extends JDialog {
 
@@ -52,10 +53,11 @@ public class DisplayBoatsGUI extends JDialog {
 		
 		contentPanel.setLayout(new BorderLayout(0, 0));
 		{
-			JLabel lblNewLabel = new JLabel("All Owner Details");
+			JLabel lblNewLabel = new JLabel("All Boat Details");
 			contentPanel.add(lblNewLabel, BorderLayout.NORTH);
 		}
 		{
+			//initialise the jtable 
 			JScrollPane scrollPane = new JScrollPane();
 			contentPanel.add(scrollPane, BorderLayout.CENTER);
 			{
@@ -68,6 +70,7 @@ public class DisplayBoatsGUI extends JDialog {
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
+				//close this window
 				JButton btnBack = new JButton("Back to Main Menu");
 				btnBack.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {

@@ -36,11 +36,19 @@ public class BoatTableModel extends AbstractTableModel {
 		return title.length;
 	}
 	
+	/**
+	 * return boat storage boats count to initialize the table row size
+	 */
 	public int getRowCount()
 	{
 		return bs.getBoats().size();
 	}
 	
+	/**
+	 * get boat from boat storage function getspecifiedBoat();
+	 * return each of the boat details in each column specified 
+	 * to the 2d array string title in above
+	 */
 	public Object getValueAt(int row, int col) 
 	{
 		Boat boat = bs.getspecifiedBoat(row+1);

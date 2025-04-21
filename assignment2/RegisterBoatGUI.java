@@ -21,6 +21,7 @@ import java.awt.event.ActionEvent;
 /**
  * @author Mah_LiYuan_B2000511
  * RegisterBoatGUI class
+ * this graphical user interface allow admin to register boat to owner
  */
 public class RegisterBoatGUI extends JDialog {
 
@@ -71,6 +72,7 @@ public class RegisterBoatGUI extends JDialog {
 			contentPanel.add(buttonPane);
 			buttonPane.setLayout(null);
 			{
+				//register boat details to owner and add to boatstorage class
 				JButton btnRegister = new JButton("Register");
 				btnRegister.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
@@ -267,6 +269,7 @@ public class RegisterBoatGUI extends JDialog {
 		contentPanel.add(tfHorsePower);
 		tfHorsePower.setColumns(10);
 		
+		//set radiobutton to buttongroup to allow user to enable one radiobutton only
 		JPanel rbpanel = new JPanel();
 		rbpanel.setBounds(183, 106, 210, 29);
 		contentPanel.add(rbpanel);
@@ -309,6 +312,7 @@ public class RegisterBoatGUI extends JDialog {
 		contentPanel.add(lblNewLabel_9);
 	}
 	
+	//set radiobutton enable or disabled depending which radio button user choose
 	public void init()
 	{
 		if (rdbtnSailBoat.isSelected())
@@ -328,6 +332,8 @@ public class RegisterBoatGUI extends JDialog {
 		}
 	}
 	
+	
+	//clear all of the gui textfield
 	public void clearText() {
 		tfOwnerID.setText("");
 		tfHeight.setText("");;

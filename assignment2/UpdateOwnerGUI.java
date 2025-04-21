@@ -17,6 +17,7 @@ import java.awt.event.ActionEvent;
 /**
  * @author Mah_LiYuan_B2000511
  * UpdateOwnerGUI Class
+ * this graphical user interface allow admin to update owner details by reference
  */
 public class UpdateOwnerGUI extends JDialog {
 
@@ -91,6 +92,7 @@ public class UpdateOwnerGUI extends JDialog {
 			contentPanel.add(taAddress);
 		}
 		{
+			//find owner details and check owner id validity
 			JButton btnGetOwner = new JButton("Get Owner Details");
 			btnGetOwner.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
@@ -140,6 +142,7 @@ public class UpdateOwnerGUI extends JDialog {
 				btnClear.setBounds(249, 5, 85, 23);
 				btnClear.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
+						clear();
 					}
 				});
 				buttonPane.setLayout(null);
@@ -147,6 +150,7 @@ public class UpdateOwnerGUI extends JDialog {
 				buttonPane.add(btnClear);
 			}
 			{
+				//update owner details by reference
 				JButton btnUpdate = new JButton("Update");
 				btnUpdate.setBounds(344, 5, 85, 23);
 				btnUpdate.addActionListener(new ActionListener() {

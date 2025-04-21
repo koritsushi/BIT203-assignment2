@@ -21,6 +21,7 @@ import java.awt.event.ActionEvent;
 /**
  * @author Mah_LiYuan_B2000511
  * UpdateBoatGUI Class
+ * this graphical user interface allow admin to update boat details by reference
  */
 public class UpdateBoatGUI extends JDialog {
 
@@ -218,6 +219,7 @@ public class UpdateBoatGUI extends JDialog {
 				buttonPane.add(btnClear);
 			}
 			{
+				//update boat details by reference
 				btnUpdate = new JButton("Update");
 				btnUpdate.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
@@ -356,7 +358,7 @@ public class UpdateBoatGUI extends JDialog {
 			contentPanel.add(tfChargeRate);
 			tfChargeRate.setColumns(10);
 		}
-		{
+		{	//find boat details and check boat id validity
 			JButton btnGetBoat = new JButton("Get Boat Details");
 			btnGetBoat.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
@@ -396,6 +398,8 @@ public class UpdateBoatGUI extends JDialog {
 		
 	}
 	
+	//disabled all the textfield and radiobutton
+	//except boatid
 	public void init()
 	{
 		tfOwnerID.setEnabled(false);
@@ -433,6 +437,7 @@ public class UpdateBoatGUI extends JDialog {
 		}
 	}
 	
+	//allocate boat details to textfield for admin to edit
 	private void setDetails()
 	{
 		tfOwnerID.setText(Integer.toString(boat.getOwner().getIdNumber()));
@@ -455,6 +460,7 @@ public class UpdateBoatGUI extends JDialog {
 		tfChargeRate.setText(Double.toString(boat.getChargeRate()));
 	}
 	
+	//emable textfield if user enter a valid boat id
 	private void enableTF()
 	{
 		//tfOwnerID.setEnabled(true);
@@ -472,6 +478,7 @@ public class UpdateBoatGUI extends JDialog {
 		btnUpdate.setEnabled(true);
 	}
 	
+	//clear all textfield
 	public void clearText() {
 		tfBoatID.setText("");
 		tfOwnerID.setText("");

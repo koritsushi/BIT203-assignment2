@@ -17,6 +17,7 @@ import java.awt.event.ActionEvent;
 /**
  * @author Mah_LiYuan_B2000511
  * DisplayOwnersGUI Class
+ * this graphical user interface allow admin to view all owner details in jtable gui
  */
 public class DisplayOwnersGUI extends JDialog {
 
@@ -55,12 +56,14 @@ public class DisplayOwnersGUI extends JDialog {
 		//table.setBounds(0, 0, 434, 228);
 		//contentPanel.add(table);
 		
+		
 		contentPanel.setLayout(new BorderLayout(0, 0));
 		{
 			JLabel lblNewLabel = new JLabel("All Owner Details");
 			contentPanel.add(lblNewLabel, BorderLayout.NORTH);
 		}
 		{
+			//initialise the jtable 
 			JScrollPane scrollPane = new JScrollPane();
 			contentPanel.add(scrollPane, BorderLayout.CENTER);
 			{
@@ -70,11 +73,11 @@ public class DisplayOwnersGUI extends JDialog {
 		}
 
 		{
-		
 			JPanel buttonPane = new JPanel();
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
+				//close this window
 				JButton btnBack = new JButton("Back to Main Menu");
 				btnBack.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {

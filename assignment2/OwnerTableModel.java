@@ -36,10 +36,18 @@ public class OwnerTableModel extends AbstractTableModel{
 		return title.length;
 	}
 	
+	/**
+	 * return boat storage boats count to initialize the table row size
+	 */
 	public int getRowCount() {
 		return bs.getOwners().size();
 	}
 	
+	/**
+	 * get owner from boat storage function getspecifiedOwner();
+	 * return each of the boat details in each column specified 
+	 * to the 2d array string title in above
+	 */
 	public Object getValueAt(int row, int col) {
 		Owner owner = bs.getspecifiedOwner(row+1);
 		switch (col)
