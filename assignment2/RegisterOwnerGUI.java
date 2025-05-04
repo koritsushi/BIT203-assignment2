@@ -75,7 +75,7 @@ public class RegisterOwnerGUI extends JDialog {
 		panel.add(lblNewLabel_1);
 		
 		JLabel lblNewLabel_2 = new JLabel("Register Owner Details");
-		lblNewLabel_2.setBounds(127, 11, 127, 14);
+		lblNewLabel_2.setBounds(127, 11, 180, 14);
 		panel.add(lblNewLabel_2);
 		
 		taAddress = new JTextArea();
